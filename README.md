@@ -13,6 +13,8 @@ This system treats you as a **learner**, not a code generator:
 
 ## 🚀 Quick Start
 
+### Using Claude Code CLI
+
 ```bash
 # Start learning something new
 /start-learning autonomous navigation
@@ -28,6 +30,32 @@ This system treats you as a **learner**, not a code generator:
 
 # Update your progress
 /update-plan
+```
+
+### Using Python SDK
+
+```bash
+# Install dependencies
+pip install -e .
+
+# Set up environment
+cp .env.example .env
+# Edit .env and add your ANTHROPIC_API_KEY
+
+# Run an example
+python examples/basic_query.py
+```
+
+```python
+# Programmatic usage
+from claude_learning import AgentClient, AgentType
+
+client = AgentClient.from_env()
+
+response = await client.query_agent(
+    agent_type=AgentType.ROS2_LEARNING_MENTOR,
+    prompt="Explain ROS2 topics"
+)
 ```
 
 ## 📚 What's Included
@@ -56,9 +84,12 @@ This system treats you as a **learner**, not a code generator:
 ## 📖 Documentation
 
 - **[COMMANDS_README.md](./COMMANDS_README.md)** - Complete command reference with examples
-- **[agents/](./agents/)** - 12 specialist teaching agents
+- **[docs/SDK_INTEGRATION.md](./docs/SDK_INTEGRATION.md)** - Python SDK integration guide
+- **[project-context/project-context.md](./project-context/project-context.md)** - Claude Agent SDK migration plan
+- **[agents/](./agents/)** - 12+ specialist teaching agents
 - **[commands/](./commands/)** - Command implementations
 - **[plans/](./plans/)** - Your generated learning plans
+- **[examples/](./examples/)** - Python SDK usage examples
 
 ## 🌟 Key Features
 
@@ -117,6 +148,30 @@ Each specialized in teaching their domain:
 claude_code/
 ├── README.md                    # This file
 ├── COMMANDS_README.md           # Complete command documentation
+├── pyproject.toml              # Python SDK package configuration
+├── .env.example                # Environment configuration template
+│
+├── src/claude_learning/        # Python SDK integration
+│   ├── __init__.py
+│   ├── agent_client.py         # Main SDK wrapper
+│   ├── config.py               # Configuration management
+│   └── models.py               # Data models
+│
+├── examples/                    # Python SDK examples
+│   ├── basic_query.py          # Simple agent query
+│   ├── learning_session.py     # Multi-turn conversation
+│   ├── ask_specialist.py       # Specialist consultation
+│   ├── create_plan.py          # Generate learning plans
+│   └── check_understanding.py  # Understanding verification
+│
+├── tests/                       # Test suite
+│   ├── test_config.py
+│   ├── test_models.py
+│   └── test_agent_client.py
+│
+├── docs/                        # Documentation
+│   ├── SDK_INTEGRATION.md      # Python SDK guide
+│   └── PROJECT_PLANNING_SYSTEM.md
 │
 ├── commands/                    # Slash commands
 │   ├── create-plan.md
@@ -126,9 +181,11 @@ claude_code/
 │   ├── ask-specialist.md
 │   └── check-understanding.md
 │
-├── agents/                      # 12 teaching specialists
+├── agents/                      # 14 teaching specialists
 │   ├── learning-coordinator.md
 │   ├── plan-generation-mentor.md
+│   ├── project-plan-orchestrator.md
+│   ├── file-search-agent.md
 │   ├── ros2-learning-mentor.md
 │   ├── code-architecture-mentor.md
 │   ├── robotics-vision-navigator.md
@@ -150,8 +207,13 @@ claude_code/
 │   ├── code-review.md
 │   └── architecture-review.md
 │
-└── plans/                       # Your learning plans
-    └── (generated learning plans)
+├── plans/                       # Your learning plans
+│   └── (generated learning plans)
+│
+└── project-context/            # Codebase analysis & planning
+    ├── README.md
+    ├── project-context.md      # SDK migration plan
+    └── relevant-files-*.md     # Generated codebase analysis
 ```
 
 ## 💡 Learning Tips

@@ -255,12 +255,35 @@ When creating a plan, use this structure:
 
 ## Plan Generation Process
 
+### Step 0: Check for Codebase Context (NEW!)
+**IMPORTANT**: Before creating a plan, check if you've been provided with a relevant files markdown:
+- Look for mentions of `project-context/relevant-files-*.md` in the prompt
+- If provided, **READ THIS FILE FIRST** using the Read tool
+- Use the file information to:
+  - Understand existing codebase structure
+  - Reference specific files in the plan
+  - Identify integration points
+  - Suggest modifications to existing files
+  - Follow existing code patterns
+
+**If relevant files markdown exists**:
+- Your plan should be **context-aware** - reference actual files
+- Include tasks to read and understand existing files
+- Point to specific integration points
+- Suggest which existing files to modify
+- Note existing patterns to follow
+
+**If no relevant files markdown**:
+- Proceed with general planning approach
+- Include research tasks to discover codebase structure
+
 ### Step 1: Understand the Learning Context
 Before creating a plan, assess:
 - **Student's Level**: What do they already know?
 - **Feature Complexity**: How challenging is this?
 - **Learning Goals**: What should they understand after?
 - **Time Available**: How much time for learning?
+- **Codebase Context**: What existing code is relevant? (from Step 0)
 
 ### Step 2: Break Down Learning Journey
 Structure the plan as a learning progression:
@@ -293,19 +316,37 @@ Each phase needs:
 - **Learning checkpoint**: Understanding verified?
 - **Exit checkpoint**: Ready for next phase?
 
-## Example Learning Plan Snippet
+## Example Learning Plan Snippet (Context-Aware)
 
 ```markdown
-## Phase 2: Navigation Algorithm Design & Basic Implementation
+## Phase 1: Understanding Existing Codebase & Research
 
 ### Learning Goals
-- Understand path planning algorithms (A*, Dijkstra, RRT)
-- Design appropriate algorithm for your robot's needs
-- Implement basic version and iterate
+- Understand existing navigation-related code structure
+- Study path planning algorithms (A*, Dijkstra, RRT)
+- Identify integration points in current codebase
 
-### Research & Design Tasks
+### Codebase Understanding Tasks
 
-#### Task 2.1: Algorithm Research
+#### Task 1.1: Review Existing Structure
+**Learning Activity**: Analyze current codebase
+- Read `src/robot_control.py` to understand current movement control
+- Study `config/robot_params.yaml` to see existing parameters
+- Review `launch/robot_bringup.launch.py` to understand system startup
+
+**Understanding Questions**:
+- How is robot movement currently controlled?
+- What sensors are available for navigation? (check sensor setup)
+- Where would navigation logic fit in the current architecture?
+
+**Files to Read**:
+1. `src/robot_control.py:45-120` - Movement control implementation
+2. `config/robot_params.yaml` - Current configuration structure
+3. `utils/sensor_interface.py` - Available sensor data
+
+**Checkpoint**: Can you draw the current system architecture?
+
+#### Task 1.2: Algorithm Research
 **Learning Activity**: Study path planning algorithms
 - Read about A* algorithm - how does it work?
 - Compare A* with Dijkstra - what's the difference?
@@ -315,10 +356,39 @@ Each phase needs:
 - When would you use A* vs RRT?
 - What are heuristics and why do they matter?
 - How does grid resolution affect performance?
+- Which algorithm best fits our existing sensor setup?
 
 **Specialist Support**: robotics-vision-navigator can explain navigation concepts
 
 **Checkpoint**: Can you explain each algorithm's strengths/weaknesses?
+
+## Phase 2: Navigation Algorithm Design & Basic Implementation
+
+### Learning Goals
+- Design navigation system that integrates with existing code
+- Implement basic version following existing patterns
+- Test with current robot control system
+
+### Research & Design Tasks
+
+#### Task 2.1: Integration Design
+**Design Decision**: How to integrate navigation with existing control
+- Review how `src/robot_control.py` handles commands
+- Design navigation interface that works with existing movement system
+- Plan configuration additions to `config/robot_params.yaml`
+
+**Integration Points** (from codebase analysis):
+- Modify: `src/robot_control.py` - Add navigation command handler
+- Extend: `config/robot_params.yaml` - Add navigation parameters
+- Create: `src/navigation_planner.py` - New navigation module
+- Update: `launch/robot_bringup.launch.py` - Include navigation node
+
+**Questions to Answer**:
+- Should navigation control motors directly or through existing control?
+- What coordinate frame to use? (check existing transform setup)
+- How to handle navigation failures?
+
+**Specialist Support**: code-architecture-mentor can guide integration design
 
 #### Task 2.2: Algorithm Selection
 **Design Decision**: Choose your path planning approach
