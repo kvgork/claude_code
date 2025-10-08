@@ -42,10 +42,10 @@ def test_get_sdk_options(client):
         custom_tools=["Read", "Write"],
     )
 
-    assert options.api_key == "test-api-key"
     assert options.model == "claude-sonnet-4-5-20250929"
-    assert options.system == "Test prompt"
+    assert options.system_prompt == "Test prompt"
     assert options.allowed_tools == ["Read", "Write"]
+    assert options.permission_mode == "ask"
 
 
 @pytest.mark.asyncio

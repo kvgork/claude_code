@@ -1,7 +1,22 @@
 """Claude Learning System - Python SDK Integration."""
 
-from .agent_client import AgentClient, AgentConfig
-from .models import LearningSession, AgentResponse
+from .agent_client import AgentClient
+from .config import AgentConfig
+from .models import (
+    AgentType,
+    LearningPhase,
+    AgentResponse,
+    LearningSession,
+    PlanMetadata,
+)
 
 __version__ = "0.1.0"
-__all__ = ["AgentClient", "AgentConfig", "LearningSession", "AgentResponse"]
+__all__ = [
+    "AgentClient",
+    "AgentConfig",
+    "AgentType",
+    "LearningPhase",
+    "AgentResponse",
+    "LearningSession",
+    "PlanMetadata",
+]

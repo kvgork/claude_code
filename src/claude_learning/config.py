@@ -45,6 +45,9 @@ class AgentConfig:
                     "ANTHROPIC_API_KEY not found. Set it in .env or pass to AgentConfig"
                 )
 
+        # Set API key in environment for SDK to use
+        os.environ["ANTHROPIC_API_KEY"] = self.api_key
+
         # Ensure directories exist
         self.agents_dir.mkdir(parents=True, exist_ok=True)
         self.commands_dir.mkdir(parents=True, exist_ok=True)

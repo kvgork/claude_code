@@ -32,10 +32,8 @@ class AgentClient:
     ) -> ClaudeAgentOptions:
         """Create SDK options from configuration."""
         return ClaudeAgentOptions(
-            api_key=self.config.api_key,
             model=self.config.model,
-            max_tokens=self.config.max_tokens,
-            system=system_prompt,
+            system_prompt=system_prompt,
             allowed_tools=custom_tools or self.config.allowed_tools,
             permission_mode=self.config.permission_mode,
         )
