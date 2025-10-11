@@ -57,6 +57,9 @@ class LearningSession:
     messages: List[AgentResponse] = field(default_factory=list)
     context: Dict[str, Any] = field(default_factory=dict)
     completed: bool = False
+    git_branch: Optional[str] = None
+    last_committed_phase: Optional[LearningPhase] = None
+    phase_commits: List[Dict[str, Any]] = field(default_factory=list)
 
     def add_response(self, response: AgentResponse) -> None:
         """Add a response to the session."""
@@ -68,6 +71,15 @@ class LearningSession:
             {"role": "assistant", "content": msg.content, "timestamp": msg.timestamp.isoformat()}
             for msg in self.messages
         ]
+
+    def record_phase_commit(self, phase: LearningPhase, commit_hash: Optional[str] = None) -> None:
+        """Record that a phase was committed."""
+        self.last_committed_phase = phase
+        self.phase_commits.append({
+            "phase": phase.value,
+            "timestamp": datetime.now().isoformat(),
+            "commit_hash": commit_hash,
+        })
 
 
 @dataclass

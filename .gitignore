@@ -49,3 +49,10 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Claude Code local config
+.claude/
+
+# Temporary files
+.temp/
+*.tmp

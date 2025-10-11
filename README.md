@@ -85,6 +85,8 @@ response = await client.query_agent(
 
 - **[COMMANDS_README.md](./COMMANDS_README.md)** - Complete command reference with examples
 - **[docs/SDK_INTEGRATION.md](./docs/SDK_INTEGRATION.md)** - Python SDK integration guide
+- **[docs/API_CLI_FALLBACK.md](./docs/API_CLI_FALLBACK.md)** - API/CLI mode switching and automatic fallback
+- **[docs/GIT_INTEGRATION.md](./docs/GIT_INTEGRATION.md)** - Automatic Git branching and phase commits
 - **[project-context/project-context.md](./project-context/project-context.md)** - Claude Agent SDK migration plan
 - **[agents/](./agents/)** - 12+ specialist teaching agents
 - **[commands/](./commands/)** - Command implementations
@@ -92,6 +94,19 @@ response = await client.query_agent(
 - **[examples/](./examples/)** - Python SDK usage examples
 
 ## 🌟 Key Features
+
+### Flexible Execution Modes
+- **API Mode** - Use Claude API directly (faster, uses quota)
+- **CLI Mode** - Use Claude Code CLI (no quota usage)
+- **AUTO Mode** (default) - Start with API, auto-fallback to CLI when quota exhausted
+- See [API_CLI_FALLBACK.md](./docs/API_CLI_FALLBACK.md) for configuration details
+
+### Automatic Git Integration
+- **Auto-branch creation** - New branch for each learning session
+- **Phase commits** - Automatic commits after each phase completion
+- **Branch tracking** - Seamlessly switch between multiple learning projects
+- **Auto-push** - Push commits to remote automatically (optional)
+- See [GIT_INTEGRATION.md](./docs/GIT_INTEGRATION.md) for details
 
 ### Learning Plans
 - **Progressive phases**: Research → Design → Implement → Reflect

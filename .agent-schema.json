@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Claude Code Teaching Agent Schema",
+  "description": "Schema for validating Claude Code teaching agent frontmatter configuration",
+  "type": "object",
+  "required": ["name", "description", "tools", "model"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "Agent identifier in kebab-case (lowercase with hyphens)",
+      "examples": ["learning-coordinator", "python-best-practices", "ros2-learning-mentor"]
+    },
+    "description": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 300,
+      "description": "Clear description of agent's purpose and teaching approach"
+    },
+    "tools": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": ["Read", "Write", "Edit", "Glob", "Grep", "Bash", "Python", "Task", "WebFetch", "WebSearch", "NotebookEdit"]
+      },
+      "description": "List of tools the agent can use (capitalized)"
+    },
+    "model": {
+      "type": "string",
+      "enum": ["sonnet", "opus", "haiku"],
+      "description": "Claude model to use for this agent"
+    },
+    "activation": {
+      "type": "string",
+      "enum": ["proactive", "manual", "always"],
+      "description": "How the agent should be activated: proactive (auto for domain), manual (explicit), always (every request)",
+      "default": "manual"
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Priority level for agent invocation (optional, higher = more priority)",
+      "default": 50
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags for categorizing and discovering agents (optional)",
+      "examples": [["teaching", "robotics", "ros2"], ["code-quality", "python"]]
+    }
+  },
+  "additionalProperties": false
+}
