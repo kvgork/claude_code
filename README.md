@@ -74,12 +74,16 @@ response = await client.query_agent(
 - `/learn-ros2-node` - Learn to create ROS2 nodes (teaching)
 - `/new-node` - Generate ROS2 nodes (production)
 
-### 🤖 12 Teaching Specialists
+### 🔧 Git Automation Commands
+- `/git-start-feature` - Create new feature branch
+- `/git-stage-commit` - Commit completed development stage
+
+### 🤖 13 Specialist Agents
 
 **Planning:** plan-generation-mentor
 **Core Learning:** ros2-learning-mentor, python-best-practices, cpp-best-practices, code-architecture-mentor
 **Domain Experts:** robotics-vision-navigator, jetank-hardware-specialist, debugging-detective, testing-specialist
-**Dev Tools:** git-workflow-expert, documentation-generator
+**Dev Tools:** git-workflow-expert (teaching), git-automation-agent (automation), documentation-generator
 
 ## 📖 Documentation
 
@@ -121,12 +125,13 @@ response = await client.query_agent(
 - ✅ **Will** help you design your own solutions
 - ✅ **Will** verify understanding at each step
 
-### 12 Specialist Agents
-Each specialized in teaching their domain:
-- **ros2-learning-mentor** - ROS2 concepts
+### 13 Specialist Agents
+Each specialized in their domain:
+- **ros2-learning-mentor** - ROS2 concepts (teaching)
 - **code-architecture-mentor** - 10 design patterns with situational guidance
 - **robotics-vision-navigator** - Computer vision, SLAM, navigation
 - **jetank-hardware-specialist** - Hardware integration with safety-first
+- **git-automation-agent** - Git workflow automation and version control
 - And 8 more specialists...
 
 ## 🎓 Example Learning Journey
@@ -194,7 +199,9 @@ claude_code/
 │   ├── update-plan.md
 │   ├── start-learning.md
 │   ├── ask-specialist.md
-│   └── check-understanding.md
+│   ├── check-understanding.md
+│   ├── git-start-feature.md
+│   └── git-stage-commit.md
 │
 ├── agents/                      # 14 teaching specialists
 │   ├── learning-coordinator.md
@@ -210,6 +217,7 @@ claude_code/
 │   ├── debugging-detective.md
 │   ├── testing-specialist.md
 │   ├── git-workflow-expert.md
+│   ├── git-automation-agent.md
 │   └── documentation-generator.md
 │
 ├── ros2/                        # ROS2-specific commands

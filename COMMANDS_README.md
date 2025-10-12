@@ -453,4 +453,123 @@ This system treats you as a **learner**, not a code-generation tool user:
 
 ---
 
+## 🔧 Git Automation Commands
+
+### `/git-start-feature [feature-name]`
+Creates a new feature branch for development work.
+
+**What it does:**
+- Validates current Git state
+- Creates appropriately named branch (feature/fix/refactor/etc.)
+- Sets up remote tracking
+- Prepares for development workflow
+
+**Examples:**
+```bash
+/git-start-feature stereo-camera
+# Creates: feature/stereo-camera
+
+/git-start-feature fix/camera-init
+# Creates: fix/camera-init
+
+/git-start-feature refactor/motor-control
+# Creates: refactor/motor-control
+```
+
+**Branch Types:**
+- `feature/<name>` - New features (default)
+- `fix/<name>` - Bug fixes
+- `refactor/<name>` - Code refactoring
+- `docs/<name>` - Documentation
+- `test/<name>` - Testing work
+- `experimental/<name>` - Experiments
+
+**Delegates to:** git-automation-agent
+
+---
+
+### `/git-stage-commit [message]`
+Commits completed development stage with descriptive message.
+
+**What it does:**
+- Checks Git status and changed files
+- Generates conventional commit message
+- Stages and commits changes
+- Reports commit details
+
+**Examples:**
+```bash
+# Auto-generate commit message from context
+/git-stage-commit
+
+# Custom stage message
+/git-stage-commit "stage 2 - stereo matching implementation"
+
+# Full custom message
+/git-stage-commit "feat(perception): add GPU-accelerated stereo matching"
+```
+
+**Commit Format:**
+Follows Conventional Commits:
+```
+<type>(<scope>): <description>
+
+- Detailed changes
+- More details
+
+Refs: #issue
+```
+
+**Types:** feat, fix, refactor, docs, test, perf, chore, build, ci
+
+**Delegates to:** git-automation-agent
+
+**Integration with Plans:**
+When working on a plan, automatically includes stage information in commits:
+```bash
+# Working on plan stage 1
+/git-stage-commit
+# Commits: "feat(perception): stage 1 - camera interface"
+```
+
+---
+
+## 🔄 Git Workflow Integration
+
+### Automated Development Flow
+
+```bash
+# 1. Create plan
+/create-plan "stereo camera perception"
+
+# 2. Start feature branch
+/git-start-feature stereo-camera
+
+# 3. Work on stage 1
+# ... code camera interface ...
+
+# 4. Commit stage 1
+/git-stage-commit
+# → "feat(perception): stage 1 - camera interface"
+
+# 5. Work on stage 2
+# ... code stereo processor ...
+
+# 6. Commit stage 2
+/git-stage-commit
+# → "feat(perception): stage 2 - stereo processor"
+
+# 7. Continue until plan complete
+/continue-plan
+```
+
+### Benefits
+- **Automatic context**: Commits include plan/stage info
+- **Consistent naming**: Follows branch and commit conventions
+- **Progress tracking**: Git history reflects learning journey
+- **Safe automation**: Validates state before operations
+- **Error handling**: Recovers from common Git issues
+
+---
+
 Happy Learning! 🎉
