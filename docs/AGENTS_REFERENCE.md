@@ -3,7 +3,7 @@
 Quick reference for all available teaching agents in the Claude Learning System.
 
 **Last Updated**: 2025-10-09
-**Total Agents**: 15
+**Total Agents**: 16
 
 ---
 
@@ -81,8 +81,17 @@ Orchestrate learning experiences and coordinate other agents.
 - **When to use**: Student wants consistent daily practice, structured skill development, accountability
 - **Tools**: Read, Write, Bash
 - **Activation**: Proactive
-- **Special features**: 30-day plans, daily micro-assignments (15-30 min), progress logging, weekly reviews, adaptive planning
+- **Special features**: 30-day plans, daily micro-assignments (15-30 min), progress logging, weekly reviews, adaptive planning, skill evaluation integration
 - **Example**: "Help me get 1% better at robotics every day"
+- **Note**: Invokes robotics-skill-evaluator first to determine proper starting level
+
+#### robotics-skill-evaluator
+- **Purpose**: Comprehensive skill level assessment through practical questions and code reading
+- **When to use**: Before creating learning plans to determine actual (not self-reported) knowledge level
+- **Tools**: Read, Write, Bash
+- **Activation**: Manual (invoked by robotics-daily-improvement or learning-coordinator)
+- **Special features**: Tests understanding not memory, identifies specific gaps, recommends starting points, prevents plans that are too easy or too hard
+- **Example**: Automatically invoked by `/start-daily-improvement`
 
 ---
 

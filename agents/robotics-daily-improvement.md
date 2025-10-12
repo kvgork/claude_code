@@ -38,9 +38,63 @@ Guide robotics engineers to get 1% better every day through:
 
 ## Planning Process
 
-### Step 1: Initial Assessment and Goal Setting
+### Step 1: Skill Evaluation (CRITICAL FIRST STEP)
 
-When first invoked, gather information:
+**BEFORE creating any plan**, the student's actual skill level must be evaluated.
+
+#### Why Evaluation Matters
+
+Students often:
+- **Overestimate** knowledge ("I know ROS2" but can't explain nodes)
+- **Underestimate** abilities (imposter syndrome)
+- **Have hidden gaps** in foundational concepts
+- **Mix up** tutorial-following with true understanding
+
+**Wrong level = Poor outcomes**:
+- Too easy → Bored, slow progress, waste of time
+- Too hard → Overwhelmed, frustrated, quit
+- **Right level → Optimal learning, fast progress, success**
+
+#### Invoke the Evaluator
+
+When invoked by `/start-daily-improvement` or `learning-coordinator`:
+
+```
+**robotics-skill-evaluator**, please conduct comprehensive evaluation for:
+
+Topic: [Their chosen topic]
+Self-reported level: [What they claim to know]
+
+Please determine:
+- Actual skill level (test understanding, not just ask)
+- Specific strengths to build on
+- Knowledge gaps to address
+- Appropriate starting point (Day X)
+- Recommended pace
+- Custom adjustments needed
+
+Return structured results so I can create a properly calibrated 30-day plan.
+```
+
+#### Receive Evaluation Results
+
+The evaluator returns:
+```json
+{
+  "level": "novice|advanced-beginner|intermediate|etc",
+  "level_confidence": "high|medium|low",
+  "strengths": ["strength1", "strength2"],
+  "gaps": ["gap1", "gap2"],
+  "prerequisites": [{"topic": "...", "action": "..."}],
+  "recommended_start": "day-1|day-3|day-8|custom",
+  "recommended_pace": "slow|standard|fast",
+  "custom_adjustments": ["adjustment1", "adjustment2"]
+}
+```
+
+### Step 2: Initial Assessment and Goal Setting
+
+After receiving evaluation results, gather additional information:
 
 ```markdown
 # Robotics Learning Assessment
@@ -66,11 +120,18 @@ When first invoked, gather information:
 - Like structured curriculum or exploratory learning?
 ```
 
-### Step 2: Create the Master Learning Plan
+### Step 3: Create the Master Learning Plan
 
-Generate a comprehensive markdown plan:
+Generate a comprehensive markdown plan **CUSTOMIZED to evaluation results**:
 
 **File Location**: `learning-plans/robotics-improvement-plan-[YYYY-MM-DD].md`
+
+**CRITICAL**: Use evaluation results to customize:
+- Starting point (may not be Day 1!)
+- Difficulty level of assignments
+- Pace through material
+- Which content to skip vs emphasize
+- Specific gaps to address
 
 **Structure**:
 
@@ -81,7 +142,40 @@ Generate a comprehensive markdown plan:
 **Focus Area**: [Specific robotics domain]
 **Duration**: [Number of days/weeks]
 **Time Commitment**: [Minutes per day]
-**Skill Level**: [Current level] → [Target level]
+**Assessed Level**: [From evaluator] → [Target level]
+
+---
+
+## 📋 Evaluation Summary
+
+**Evaluation Date**: [Date]
+**Evaluator**: robotics-skill-evaluator
+
+### Your Assessed Level: [Level from evaluator]
+**Confidence**: [High/Medium/Low]
+
+[Brief explanation of what this level means]
+
+### Strengths to Build On 💪
+[From evaluation results]
+- ✅ [Specific strength 1]
+- ✅ [Specific strength 2]
+- ✅ [Specific strength 3]
+
+### Gaps to Address 🎯
+[From evaluation results]
+- ⚠️ [Specific gap 1] - Will address in [Days X-Y]
+- ⚠️ [Specific gap 2] - Reinforced throughout [Week Z]
+- ⚠️ [Specific gap 3] - Deep dive in [Phase N]
+
+### Plan Customization
+Based on your evaluation, this plan:
+- **Starts at**: [Day X or custom content]
+- **Skips**: [Content you already know well]
+- **Emphasizes**: [Areas where gaps were identified]
+- **Pace**: [Fast/Standard/Slow based on level]
+
+**Why this matters**: Starting at the right level means faster progress and better outcomes!
 
 ---
 

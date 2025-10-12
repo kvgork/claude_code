@@ -119,9 +119,90 @@ or
 "robotics-daily-improvement, help me create a 30-day plan for [topic]"
 ```
 
-### Step 2: Assessment Questions
+### Step 2: Skill Evaluation (10-15 minutes)
 
-The agent will ask about:
+**Before creating your plan**, the system evaluates your ACTUAL skill level.
+
+#### Why This Matters
+
+Many students:
+- **Overestimate** ("I know Python" but can't write a class)
+- **Underestimate** (imposter syndrome is real!)
+- **Have hidden gaps** in foundational knowledge
+- **Confuse** tutorial-following with true understanding
+
+**Wrong level = Bad outcomes**:
+- ❌ Too easy → Bored, slow progress, waste of time
+- ❌ Too hard → Overwhelmed, frustrated, quit
+- ✅ **Right level → Fast progress, great outcomes!**
+
+#### What to Expect
+
+The **robotics-skill-evaluator** agent will:
+
+1. **Ask conceptual questions** to test understanding
+   - Not "Do you know X?" but "Explain why X works this way"
+   - Tests if you truly understand, not just memorized
+
+2. **Show you code** to test reading ability
+   - Can you follow and explain what code does?
+   - Reveals your actual level with the tools
+
+3. **Give you a small challenge** (for intermediate+ claims)
+   - Optional 5-minute practical task
+   - Shows problem-solving approach
+
+**Example Questions**:
+
+For ROS2:
+> "Explain why ROS2 uses separate nodes instead of one big program. What problem does this solve?"
+
+For Computer Vision:
+> "Why might you convert from RGB to HSV before detecting a colored object?"
+
+For Robot Control:
+> "Your robot overshoots its target. What would you adjust in your controller and why?"
+
+#### Evaluation Results
+
+You'll receive:
+
+```markdown
+## 📊 Your Evaluation Results
+
+### Assessed Level: Advanced Beginner
+**Confidence**: High
+
+**What this means**: You understand core concepts and can write simple code
+with reference. Ready for practical application with some guidance.
+
+### Your Strengths 💪
+- ✅ Solid Python fundamentals
+- ✅ Good debugging methodology
+- ✅ Understands publisher/subscriber pattern
+
+### Gaps Identified 🎯
+- ⚠️ TF2 transforms need reinforcement
+- ⚠️ Launch files not practiced yet
+- ⚠️ QoS settings unclear
+
+### Your Plan Will:
+- Start at Day 3 (skip basic node creation - you know this)
+- Standard-to-fast pace through fundamentals
+- Extra emphasis on TF2 (addressing gap)
+- QoS deep dive in Week 2
+```
+
+#### Be Honest During Evaluation!
+
+- **Don't look up answers** - that defeats the purpose
+- **It's okay to say "I don't know"** - that's helpful information!
+- **Your best guess is fine** - shows your thinking process
+- **No judgment** - this is calibration, not a test to pass/fail
+
+### Step 3: Goal Questions
+
+After evaluation, the agent will ask about:
 
 #### Your Background
 - What's your robotics experience level? (beginner/intermediate/advanced)
@@ -155,9 +236,9 @@ The agent will ask about:
 **Example Answer**:
 > "I prefer hands-on first - build something simple, then understand the theory. I learn best from code examples and official docs."
 
-### Step 3: Receive Your Plan
+### Step 4: Receive Your Customized Plan
 
-The agent creates two files:
+The agent creates two files **tailored to your evaluated level**:
 
 1. **Learning Plan**: `learning-plans/robotics-improvement-plan-[DATE].md`
    - Your complete 30-day curriculum
@@ -169,12 +250,34 @@ The agent creates two files:
    - Weekly review sections
    - Monthly assessment
 
-### Step 4: Review and Confirm
+### Step 5: Review Your Customized Plan
 
-- Read through your plan
-- Check Day 1 assignment
-- Ask questions if anything is unclear
-- Adjust if needed (time commitment, pace, focus)
+- **Review the evaluation summary** - Does it feel accurate?
+- **Check the starting point** - Day 1 might not be absolute basics!
+- **Note what's skipped** - Based on your strengths
+- **See gap addressing** - How identified weaknesses will be reinforced
+- **Ask questions** if anything is unclear
+- **Adjust if needed** - But trust the evaluation!
+
+**Example Customization**:
+
+**Complete Beginner**:
+- Starts Day 1: Absolute basics, lots of explanation
+- Slower pace, more reinforcement
+
+**Novice**:
+- Starts Day 1: Quick review then new content
+- Standard pace
+
+**Advanced Beginner** (evaluated, even if you said "beginner"):
+- Starts Day 3: Skips what you already know
+- Faster pace through fundamentals
+- More challenging assignments
+
+**Intermediate**:
+- Starts Day 8-10: Jumps to advanced topics
+- Fast pace, assumes foundations
+- Complex integration projects
 
 ---
 

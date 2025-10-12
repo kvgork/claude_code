@@ -5,15 +5,59 @@ Create a 30-day learning plan with daily micro-assignments (15-30 minutes each) 
 
 ### Topic (if specified): $ARGUMENTS
 
-## Step 1: Assessment (REQUIRED)
+## Step 1: Skill Evaluation (REQUIRED)
 
-If topic is specified in $ARGUMENTS, acknowledge it. Then conduct the assessment:
+**CRITICAL**: Before creating a plan, we must determine the student's ACTUAL skill level.
+
+### Invoke the Skill Evaluator
 
 ```markdown
 # 🤖 Robotics Daily Improvement - Let's Get Started!
 
 I'll create a personalized 30-day plan to help you get 1% better every day.
-First, let me understand your learning context:
+
+**First, I need to properly evaluate your current skill level** so we create
+the perfect plan (not too easy, not too hard).
+
+This takes 10-15 minutes but ensures you get maximum value from your 30 days!
+
+---
+
+Connecting you with the **robotics-skill-evaluator** agent...
+```
+
+Invoke the evaluator:
+
+```
+robotics-skill-evaluator, please conduct a comprehensive skill evaluation for:
+
+Topic: $ARGUMENTS (or general robotics if not specified)
+
+Determine:
+- Actual skill level (not self-reported)
+- Specific strengths to build on
+- Knowledge gaps to address
+- Appropriate starting point
+- Recommended pace
+
+After evaluation, return results in structured format so I can create
+a properly calibrated 30-day plan.
+```
+
+## Step 2: Receive Evaluation Results
+
+The skill evaluator will return:
+- Determined skill level (Beginner/Novice/Advanced Beginner/Intermediate/Advanced)
+- Strengths identified
+- Gaps identified
+- Prerequisites needed
+- Recommended starting point
+- Pace recommendation
+- Custom adjustments
+
+## Step 3: Assessment (Building on Evaluation)
+
+After receiving evaluation results, ask remaining questions:
 
 ## 1. Your Background
 - What's your current robotics experience level?
@@ -61,9 +105,15 @@ First, let me understand your learning context:
 Please answer these questions, and I'll create your personalized 30-day plan!
 ```
 
-## Step 2: Create Personalized Plan
+## Step 4: Create Personalized Plan
 
-Based on their answers, create two files:
+**CRITICAL**: Use evaluation results to customize the plan!
+
+Based on:
+- **Evaluation results** (actual skill level, gaps, strengths)
+- **Their goal answers** (timeline, resources, learning style)
+
+Create two files tailored to their TRUE level:
 
 ### File 1: Learning Plan
 **Location**: `learning-plans/robotics-improvement-plan-[YYYY-MM-DD].md`
@@ -76,7 +126,33 @@ Based on their answers, create two files:
 **Focus Area**: [Their chosen topic]
 **Duration**: [Number of days based on timeline]
 **Time Commitment**: [Minutes per day]
-**Skill Level**: [Current level] → [Target level]
+**Skill Level**: [Evaluated level from skill evaluator] → [Target level]
+
+---
+
+## 📋 Evaluation Summary
+
+### Your Assessed Level: [From Evaluator]
+**Evaluation Date**: [Date]
+
+### Strengths to Build On 💪
+[From evaluator results]
+- ✅ [Strength 1]
+- ✅ [Strength 2]
+- ✅ [Strength 3]
+
+### Gaps to Address 🎯
+[From evaluator results]
+- ⚠️ [Gap 1] - Will address in [Days X-Y]
+- ⚠️ [Gap 2] - Reinforced in [Week Z]
+- ⚠️ [Gap 3] - Foundation in [Phase N]
+
+### Plan Customization
+Based on your evaluation:
+- **Starting point**: [Day X equivalent or custom]
+- **Pace**: [Fast/Standard/Slow]
+- **Focus areas**: [Specific areas based on gaps]
+- **Skip content**: [What we can skip based on strengths]
 
 ---
 
@@ -113,21 +189,39 @@ Based on their answers, create two files:
 
 ### Week 1: [Theme]
 
-#### Day 1: [Concept Name]
-**Objective**: [What they'll learn]
-**Time**: [Their time commitment]
+**IMPORTANT**: Adjust Day 1 based on evaluation results!
 
-**Assignment**:
-1. **Research** ([X] min): [Specific topic to study]
-   - Question to answer: [Guiding question]
+#### If Evaluated as Beginner:
+Start with absolute basics, more explanation
+
+#### If Evaluated as Novice:
+Quick review then new content
+
+#### If Evaluated as Advanced Beginner:
+Skip basics, start with practical application
+
+#### If Evaluated as Intermediate:
+Start at Day 8-10 equivalent, advanced topics
+
+---
+
+#### Day 1: [Concept Name - ADJUSTED FOR LEVEL]
+**Objective**: [What they'll learn - appropriate for their level]
+**Time**: [Their time commitment]
+**Prerequisites**: [If any gaps identified, note here]
+
+**Assignment** (calibrated to [their level]):
+1. **Research** ([X] min): [Specific topic - depth based on level]
+   - Question to answer: [Guiding question - complexity based on level]
    - Resource: [Where to look]
 
-2. **Hands-On** ([Y] min): [Specific task]
+2. **Hands-On** ([Y] min): [Specific task - difficulty based on level]
    - Task: [What to build/try]
    - Success criteria: [How they know they're done]
    - Hint: [Guidance, not solution]
+   - **[If Advanced]**: Extension challenge for deeper exploration
 
-3. **Reflect** ([Z] min): [Thinking question]
+3. **Reflect** ([Z] min): [Thinking question - depth based on level]
 
 **Log Template**:
 ```
