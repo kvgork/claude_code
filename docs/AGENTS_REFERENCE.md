@@ -3,7 +3,7 @@
 Quick reference for all available teaching agents in the Claude Learning System.
 
 **Last Updated**: 2025-10-09
-**Total Agents**: 14
+**Total Agents**: 15
 
 ---
 
@@ -19,6 +19,7 @@ Quick reference for all available teaching agents in the Claude Learning System.
 **Need a project plan?**
 - Context-aware plan → `/create-project-plan <feature>`
 - Learning-focused plan → `/create-plan <feature>`
+- Daily improvement plan → `robotics-daily-improvement`
 
 **Need code review/guidance?**
 - Python code → `python-best-practices`
@@ -74,6 +75,14 @@ Orchestrate learning experiences and coordinate other agents.
 - **Activation**: Proactive
 - **Special features**: Progressive phases, learning checkpoints, journal structure
 - **Example**: "Create a learning plan for SLAM implementation"
+
+#### robotics-daily-improvement
+- **Purpose**: Creates personalized daily learning plans with micro-assignments for continuous 1% improvement
+- **When to use**: Student wants consistent daily practice, structured skill development, accountability
+- **Tools**: Read, Write, Bash
+- **Activation**: Proactive
+- **Special features**: 30-day plans, daily micro-assignments (15-30 min), progress logging, weekly reviews, adaptive planning
+- **Example**: "Help me get 1% better at robotics every day"
 
 ---
 
@@ -220,11 +229,12 @@ All agents follow these principles:
 
 ## 📌 Activation Modes
 
-### Proactive (6 agents)
+### Proactive (7 agents)
 Auto-invoked when their domain is mentioned:
 - learning-coordinator
 - project-plan-orchestrator
 - plan-generation-mentor
+- robotics-daily-improvement
 - ros2-learning-mentor
 - robotics-vision-navigator
 - jetank-hardware-specialist
@@ -249,6 +259,7 @@ Invoked explicitly by user or coordinator:
 | learning-coordinator | ✓ | ✓ | ✓ | ✓ | | | |
 | project-plan-orchestrator | ✓ | ✓ | | | ✓ | | ✓ |
 | plan-generation-mentor | ✓ | ✓ | | | | | |
+| robotics-daily-improvement | ✓ | ✓ | ✓ | | | | |
 | ros2-learning-mentor | ✓ | ✓ | ✓ | ✓ | | | |
 | robotics-vision-navigator | ✓ | ✓ | ✓ | ✓ | | | |
 | jetank-hardware-specialist | ✓ | ✓ | ✓ | ✓ | | | |
