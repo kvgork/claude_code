@@ -15,6 +15,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 from skills.learning_plan_manager import LearningPlanManager, TaskStatus
 from skills.code_analysis import CodeAnalyzer
 from skills.learning_analytics import LearningAnalyzer, RecommendationPriority
+from skills.interactive_diagram import DiagramGenerator
 
 
 def demo_context_aware_planning():
@@ -534,6 +535,108 @@ def demo_learning_analytics():
     print("-" * 70)
 
 
+def demo_interactive_diagrams():
+    """
+    Demo: Generate visual diagrams from skills data
+
+    Scenario: Transform data into visual learning aids
+    """
+    print("=" * 70)
+    print("DEMO 7: Interactive Diagrams - Visual Learning")
+    print("=" * 70)
+    print()
+    print("Scenario: Generate visual diagrams from skills data")
+    print()
+
+    # Initialize
+    manager = LearningPlanManager()
+    analyzer = LearningAnalyzer()
+    generator = DiagramGenerator()
+
+    # Load plan
+    print("1. Loading learning plan...")
+    plan = manager.find_latest_plan()
+
+    if not plan:
+        print("   ⚠️  No plans found")
+        return
+
+    print(f"   ✅ Loaded: {plan.metadata.title}")
+    print()
+
+    # Analyze
+    print("2. Analyzing progress...")
+    analytics = analyzer.analyze_plan(plan)
+    print(f"   ✅ Analysis complete")
+    print()
+
+    # Generate diagrams
+    print("=" * 70)
+    print("GENERATING VISUAL DIAGRAMS")
+    print("=" * 70)
+    print()
+
+    # Diagram 1: Progress Chart
+    print("📊 Progress Chart (Pie Chart)")
+    print("-" * 70)
+    progress_diagram = generator.generate_progress_chart(analytics)
+    print(f"Title: {progress_diagram.title}")
+    print(f"Type: {progress_diagram.diagram_type.value}")
+    print()
+    print("Mermaid Output:")
+    print(progress_diagram.to_markdown())
+    print()
+
+    # Diagram 2: Learning Journey
+    print("🗺️  Learning Journey (Flowchart)")
+    print("-" * 70)
+    journey_diagram = generator.generate_learning_journey(plan, analytics)
+    print(f"Title: {journey_diagram.title}")
+    print(f"Phases: {journey_diagram.metadata.get('phases_count', 0)}")
+    print()
+    # Show first few lines of mermaid code
+    lines = journey_diagram.mermaid_code.split('\n')[:5]
+    print("Mermaid Preview:")
+    for line in lines:
+        print(f"  {line}")
+    print("  ...")
+    print()
+
+    # Diagram 3: Timeline
+    print("📅 Timeline (Gantt Chart)")
+    print("-" * 70)
+    timeline_diagram = generator.generate_gantt_chart(plan)
+    print(f"Title: {timeline_diagram.title}")
+    print(f"Type: {timeline_diagram.diagram_type.value}")
+    print()
+
+    # Show how agent would use it
+    print("=" * 70)
+    print("HOW AGENT WOULD USE DIAGRAMS")
+    print("=" * 70)
+    print()
+
+    print("Agent Response:")
+    print("-" * 70)
+    print('"Great to see you back! Let me show you your progress visually.')
+    print()
+    print(progress_diagram.to_markdown())
+    print()
+    print("You\\'re making solid progress! Here\\'s your learning journey:")
+    print()
+    print("(Learning journey diagram would be shown here)")
+    print()
+    print('Ready to continue with the next task?"')
+    print("-" * 70)
+    print()
+
+    print("✅ Visual diagrams enhance learning by:")
+    print("  • Making abstract concepts concrete")
+    print("  • Showing progress at a glance")
+    print("  • Providing visual motivation")
+    print("  • Helping understand structure and flow")
+
+
 def main():
     """Run all demos"""
     print("\n" + "=" * 70)
@@ -548,6 +651,7 @@ def main():
         demo_learning_journey_with_code_feedback,
         demo_export_analysis_report,
         demo_learning_analytics,
+        demo_interactive_diagrams,
     ]
 
     for demo in demos:
@@ -567,8 +671,9 @@ def main():
     print("1. code-analysis provides architectural understanding")
     print("2. learning-plan-manager tracks educational progress")
     print("3. learning-analytics detects struggles and adapts teaching")
-    print("4. Together they enable intelligent, context-aware, proactive teaching")
-    print("5. Agents transform from reactive helpers to proactive mentors")
+    print("4. interactive-diagram makes concepts visual and concrete")
+    print("5. Together they enable intelligent, visual, proactive teaching")
+    print("6. Agents transform from reactive helpers to adaptive visual mentors")
     print()
 
 
