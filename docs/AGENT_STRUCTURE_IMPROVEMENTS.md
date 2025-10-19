@@ -310,7 +310,7 @@ python3 scripts/validate-agents.py
 
 ### All 14 Agent Files in `agents/`
 - code-architecture-mentor.md
-- cpp-best-practises.md
+- cpp-best-practices.md
 - debugging-detective.md
 - documentation-generator.md
 - file-search-agent.md
@@ -353,7 +353,7 @@ $ python3 scripts/validate-agents.py
 📊 Validation Results: 14/14 agents valid
 
 ✅ code-architecture-mentor.md
-✅ cpp-best-practises.md
+✅ cpp-best-practices.md
 ✅ debugging-detective.md
 ✅ documentation-generator.md
 ✅ file-search-agent.md

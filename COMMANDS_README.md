@@ -382,7 +382,7 @@ claude_code/
 │   └── architecture-review.md   # Architecture review
 │
 ├── agents/
-│   └── [12 specialist agents]   # Teaching specialists
+│   └── [14 specialist agents]   # Teaching specialists
 │
 └── plans/
     └── [Your learning plans]    # Generated plans stored here

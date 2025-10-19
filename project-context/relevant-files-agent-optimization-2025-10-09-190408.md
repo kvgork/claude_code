@@ -179,7 +179,7 @@ This analysis examines the complete teaching agent ecosystem consisting of 14 sp
   - Would benefit from progressive skill levels
   - Missing analogies that make Pythonic concepts clearer
 
-#### 7. `/home/koen/workspaces/claude_code/agents/cpp-best-practises.md`
+#### 7. `/home/koen/workspaces/claude_code/agents/cpp-best-practices.md`
 - **Type**: C++ coding standards specialist
 - **Purpose**: Teaches modern C++ best practices with robotics focus
 - **Strengths**:

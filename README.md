@@ -91,8 +91,8 @@ response = await client.query_agent(
 - **[docs/SDK_INTEGRATION.md](./docs/SDK_INTEGRATION.md)** - Python SDK integration guide
 - **[docs/API_CLI_FALLBACK.md](./docs/API_CLI_FALLBACK.md)** - API/CLI mode switching and automatic fallback
 - **[docs/GIT_INTEGRATION.md](./docs/GIT_INTEGRATION.md)** - Automatic Git branching and phase commits
-- **[project-context/project-context.md](./project-context/project-context.md)** - Claude Agent SDK migration plan
-- **[agents/](./agents/)** - 12+ specialist teaching agents
+- **[docs/MIGRATION_SUMMARY.md](./docs/MIGRATION_SUMMARY.md)** - SDK migration history and implementation details
+- **[agents/](./agents/)** - 14 specialist teaching agents
 - **[commands/](./commands/)** - Command implementations
 - **[plans/](./plans/)** - Your generated learning plans
 - **[examples/](./examples/)** - Python SDK usage examples
@@ -182,7 +182,10 @@ claude_code/
 │   ├── learning_session.py     # Multi-turn conversation
 │   ├── ask_specialist.py       # Specialist consultation
 │   ├── create_plan.py          # Generate learning plans
-│   └── check_understanding.py  # Understanding verification
+│   ├── check_understanding.py  # Understanding verification
+│   ├── fallback_demo.py        # API/CLI fallback demonstration
+│   ├── git_integration_demo.py # Git integration demonstration
+│   └── README.md               # Examples documentation
 │
 ├── tests/                       # Test suite
 │   ├── test_config.py
@@ -191,7 +194,11 @@ claude_code/
 │
 ├── docs/                        # Documentation
 │   ├── SDK_INTEGRATION.md      # Python SDK guide
-│   └── PROJECT_PLANNING_SYSTEM.md
+│   ├── API_CLI_FALLBACK.md     # API/CLI mode switching guide
+│   ├── GIT_INTEGRATION.md      # Git integration guide
+│   ├── PROJECT_PLANNING_SYSTEM.md
+│   ├── MIGRATION_SUMMARY.md    # SDK migration history
+│   └── ...                     # Additional documentation
 │
 ├── commands/                    # Slash commands
 │   ├── create-plan.md
