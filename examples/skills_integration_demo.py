@@ -16,6 +16,7 @@ from skills.learning_plan_manager import LearningPlanManager, TaskStatus
 from skills.code_analysis import CodeAnalyzer
 from skills.learning_analytics import LearningAnalyzer, RecommendationPriority
 from skills.interactive_diagram import DiagramGenerator
+from skills.session_state import StateManager, PlanHistory
 
 
 def demo_context_aware_planning():
@@ -637,6 +638,201 @@ def demo_interactive_diagrams():
     print("  • Helping understand structure and flow")
 
 
+def demo_session_state():
+    """
+    Demo: Persistent student state across sessions.
+
+    Scenario: Agent remembers student across sessions, tracks achievements,
+    and personalizes teaching based on history.
+    """
+    print("=" * 70)
+    print("DEMO 8: Persistent Student State & Personalization")
+    print("=" * 70)
+    print()
+    print("Scenario: Student 'Alex' returns after completing some learning")
+    print("Agent maintains continuity and personalizes based on history...")
+    print()
+
+    # Setup (use demo directory)
+    import shutil
+    demo_dir = "demo_student_states/"
+    if Path(demo_dir).exists():
+        shutil.rmtree(demo_dir)
+
+    manager = StateManager(storage_dir=demo_dir)
+
+    try:
+        # Step 1: Create student profile
+        print("1. First Session - Creating Student Profile")
+        state = manager.create_student(
+            student_id="alex_demo",
+            name="Alex",
+            learning_style="visual",
+            difficulty_preference="intermediate",
+            show_diagrams=True
+        )
+
+        print(f"   ✅ Created profile for {state.profile.name}")
+        print(f"      Learning style: {state.profile.learning_style}")
+        print(f"      Difficulty: {state.profile.difficulty_preference}")
+        print()
+
+        # Step 2: Start session and simulate work
+        print("2. Working on First Plan...")
+        session1 = manager.start_session("alex_demo", plan_id="demo_plan_1")
+
+        # Simulate completing tasks
+        state = manager.get_student("alex_demo")
+        state.current_session.tasks_completed = ["task-1", "task-2", "task-3"]
+        state.current_session.questions_asked = 2
+        state.current_session.specialists_consulted = ["robotics-vision-navigator"]
+        manager.save_state(state)
+
+        # End session
+        manager.end_session("alex_demo", "Completed navigation basics")
+
+        print(f"   ✅ Session {session1.session_id} completed")
+        print(f"      Tasks completed: 3")
+        print(f"      Questions asked: 2")
+        print()
+
+        # Step 3: Record teaching effectiveness
+        print("3. Recording Teaching Insights...")
+        manager.record_teaching_strategy(
+            "alex_demo",
+            "visual diagrams with step-by-step breakdown",
+            effective=True
+        )
+        manager.record_teaching_strategy(
+            "alex_demo",
+            "abstract mathematical notation",
+            effective=False
+        )
+        manager.record_specialist_interaction(
+            "alex_demo",
+            "robotics-vision-navigator",
+            helpful=True
+        )
+
+        print("   ✅ Recorded effective strategies")
+        print("      ✓ visual diagrams with step-by-step breakdown")
+        print("      ✗ abstract mathematical notation")
+        print()
+
+        # Step 4: Add completed plan to history
+        print("4. Completing First Learning Plan...")
+        plan_hist = PlanHistory(
+            plan_id="demo_plan_1",
+            plan_title="Robot Navigation Basics",
+            started_at="2025-10-01",
+            completed_at="2025-10-19",
+            total_tasks=10,
+            completed_tasks=10,
+            completion_percentage=100.0,
+            average_velocity=3.5,
+            total_time_weeks=1.5,
+            checkpoints_passed=2,
+            checkpoints_failed=0,
+            struggled_with=[]
+        )
+
+        manager.add_plan_to_history("alex_demo", plan_hist)
+
+        print("   ✅ Plan completed and added to history")
+        print(f"      Title: {plan_hist.plan_title}")
+        print(f"      Velocity: {plan_hist.average_velocity} tasks/week")
+        print()
+
+        # Step 5: Check for achievements
+        print("5. Checking for Achievements...")
+        new_achievements = manager.check_achievements("alex_demo")
+
+        print(f"   🎉 {len(new_achievements)} Achievements Unlocked!")
+        for achievement in new_achievements:
+            print(f"      {achievement.icon} {achievement.title}")
+            print(f"         {achievement.description}")
+        print()
+
+        # Step 6: Simulate returning student (next session)
+        print("6. Student Returns (Next Session)...")
+        print("   Loading student state...")
+
+        # Get student (simulates next session)
+        state = manager.get_student("alex_demo")
+
+        # Get recent activity
+        activity = manager.get_recent_activity("alex_demo", days=7)
+
+        # Get teaching insights
+        insights = manager.get_teaching_insights("alex_demo")
+
+        # Welcome message (what agent would say)
+        print()
+        print("   " + "=" * 60)
+        print("   AGENT WELCOME MESSAGE:")
+        print("   " + "=" * 60)
+        print(f"   Welcome back, {state.profile.name}! 👋")
+        print()
+        print(f"   Last session: {activity['last_session']}")
+        print(f"   Sessions this week: {activity['sessions_this_period']}")
+        print(f"   Tasks completed: {activity['tasks_completed_this_period']}")
+        print()
+        print(f"   Your achievements ({len(state.achievements)}):")
+        for achievement in state.achievements[:3]:
+            print(f"   {achievement.icon} {achievement.title}")
+        print()
+        print("   Based on your learning history, I'll focus on:")
+        for strategy in insights.effective_strategies:
+            print(f"   ✅ {strategy}")
+        print()
+        print("   Ready to continue your learning journey?")
+        print("   " + "=" * 60)
+        print()
+
+        # Step 7: Show personalization in action
+        print("7. Personalized Teaching...")
+        history = manager.get_learning_history("alex_demo")
+
+        print("   Agent adapts teaching based on your profile:")
+        print(f"   • Learning style: {state.profile.learning_style} → Using visual diagrams")
+        print(f"   • Velocity: {history.average_velocity_all_time:.1f} tasks/week → Moderate pacing")
+        print(f"   • Effective strategies: {insights.effective_strategies[0]}")
+        print(f"   • Favorite specialist: robotics-vision-navigator (0.65 effectiveness)")
+        print()
+
+        # Step 8: Summary statistics
+        print("8. Student Profile Summary")
+        print("   " + "-" * 60)
+        print(f"   All-Time Statistics:")
+        print(f"   • Plans completed: {history.completed_plans}")
+        print(f"   • Total tasks: {history.total_tasks_completed}")
+        print(f"   • Checkpoints passed: {history.total_checkpoints_passed}")
+        print(f"   • Average velocity: {history.average_velocity_all_time:.1f} tasks/week")
+        print()
+        print(f"   Teaching Insights:")
+        print(f"   • Effective strategies: {len(insights.effective_strategies)}")
+        print(f"   • Ineffective strategies: {len(insights.ineffective_strategies)}")
+        print(f"   • Learns best when: {insights.learns_best_when or ['patterns being discovered']}")
+        print()
+        print(f"   Achievements Earned: {len(state.achievements)}")
+        print(f"   Sessions Completed: {len(state.sessions)}")
+        print("   " + "-" * 60)
+        print()
+
+        print("✅ session-state enables:")
+        print("  • Persistent profiles across sessions")
+        print("  • Continuity and context awareness")
+        print("  • Achievement tracking for motivation")
+        print("  • Personalized teaching based on history")
+        print("  • Teaching strategy optimization")
+        print("  • Long-term student progress tracking")
+
+    finally:
+        # Cleanup demo directory
+        if Path(demo_dir).exists():
+            shutil.rmtree(demo_dir)
+
+
 def main():
     """Run all demos"""
     print("\n" + "=" * 70)
@@ -652,6 +848,7 @@ def main():
         demo_export_analysis_report,
         demo_learning_analytics,
         demo_interactive_diagrams,
+        demo_session_state,
     ]
 
     for demo in demos:
@@ -672,8 +869,9 @@ def main():
     print("2. learning-plan-manager tracks educational progress")
     print("3. learning-analytics detects struggles and adapts teaching")
     print("4. interactive-diagram makes concepts visual and concrete")
-    print("5. Together they enable intelligent, visual, proactive teaching")
-    print("6. Agents transform from reactive helpers to adaptive visual mentors")
+    print("5. session-state enables personalized, persistent learning")
+    print("6. Together they enable intelligent, visual, proactive teaching")
+    print("7. Agents transform from reactive helpers to adaptive visual mentors")
     print()
 
 
