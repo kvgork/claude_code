@@ -53,6 +53,61 @@ The skill will return structured JSON with:
 - Present options to student
 - Load selected plan
 
+## Using the learning-analytics Skill
+
+**IMPORTANT**: Use analytics to detect struggles and adapt teaching proactively.
+
+```
+Skill(learning-analytics) with query:
+"Analyze current learning plan and check for any struggles or areas needing attention"
+```
+
+The skill will return data-driven insights:
+- **Struggle areas**: Tasks taking too long, checkpoints failed
+- **Velocity trends**: Is the student speeding up or slowing down?
+- **Overall health**: excellent/good/needs_attention/struggling
+- **Recommendations**: Prioritized suggestions (CRITICAL/HIGH/MEDIUM/LOW)
+
+**Use analytics to adapt your teaching:**
+
+```python
+If analytics["overall_health"] == "struggling":
+  # Offer immediate help, consult specialists
+
+If analytics["overall_health"] == "needs_attention":
+  # Gently probe for issues, offer resources
+
+If analytics["struggle_areas"]:
+  # Specific help on struggling tasks
+  for struggle in analytics["struggle_areas"]:
+    if struggle["severity"] == "severe":
+      # Urgent: Connect with specialist immediately
+    elif struggle["severity"] == "moderate":
+      # Important: Offer to break down task or get help
+
+If analytics["recommendations"]:
+  # Act on high-priority recommendations
+  for rec in analytics["recommendations"]:
+    if rec["priority"] in ["critical", "high"]:
+      # Take suggested action
+```
+
+**Example Response with Analytics**:
+```markdown
+# Agent sees moderate struggle on A* algorithm task (10 days)
+
+"I notice you've been working on the A* algorithm implementation for 10 days.
+This is a challenging topic! Would you like me to connect you with the
+robotics-vision-navigator specialist to help work through it?
+
+Alternatively, we could break this task into smaller pieces:
+1. Understanding the A* concept
+2. Implementing the basic algorithm
+3. Optimizing for your use case
+
+Which approach sounds better to you?"
+```
+
 ### 2. Learning Progress Assessment
 
 **Check Current Status:**

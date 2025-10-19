@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from skills.learning_plan_manager import LearningPlanManager, TaskStatus
 from skills.code_analysis import CodeAnalyzer
+from skills.learning_analytics import LearningAnalyzer, RecommendationPriority
 
 
 def demo_context_aware_planning():
@@ -335,11 +336,209 @@ def demo_export_analysis_report():
         print()
 
 
+def demo_learning_analytics():
+    """
+    Demo: Use learning-analytics to detect struggles and adapt teaching.
+
+    Scenario: Student is working through a learning plan.
+    Agent uses analytics to proactively detect issues.
+    """
+    print("=" * 70)
+    print("DEMO 6: Learning Analytics - Proactive Teaching")
+    print("=" * 70)
+    print()
+    print("Scenario: Analyze student's learning progress and detect issues")
+    print()
+
+    # Initialize
+    manager = LearningPlanManager()
+    analyzer = LearningAnalyzer()
+
+    # Load plan
+    print("1. Loading learning plan...")
+    plan = manager.find_latest_plan()
+
+    if not plan:
+        print("   ⚠️  No plans found")
+        return
+
+    print(f"   ✅ Loaded: {plan.metadata.title}")
+    print()
+
+    # Analyze
+    print("2. Analyzing learning progress...")
+    analytics = analyzer.analyze_plan(plan)
+
+    print(f"   ✅ Analysis complete")
+    print()
+
+    # Show results
+    print("=" * 70)
+    print("ANALYTICS RESULTS")
+    print("=" * 70)
+    print()
+
+    # Overall health
+    health_emoji = {
+        "excellent": "🌟",
+        "good": "✅",
+        "needs_attention": "⚠️",
+        "struggling": "🆘"
+    }
+    emoji = health_emoji.get(analytics.overall_health, "❓")
+
+    print(f"Overall Health: {emoji} {analytics.overall_health.upper()}")
+    print()
+
+    # Velocity
+    print("Velocity Metrics:")
+    print(f"  • Tasks per week: {analytics.velocity_metrics.tasks_per_week}")
+    print(f"  • Trend: {analytics.velocity_metrics.velocity_trend}")
+    print(f"  • On track: {'✅ Yes' if analytics.velocity_metrics.on_track else '⚠️  No'}")
+    if analytics.velocity_metrics.estimated_completion_date:
+        print(f"  • Est. completion: {analytics.velocity_metrics.estimated_completion_date}")
+    print()
+
+    # Struggles
+    if analytics.struggle_areas:
+        print(f"⚠️  Struggle Areas ({len(analytics.struggle_areas)}):")
+        for struggle in analytics.struggle_areas[:3]:
+            severity_emoji = {"minor": "⚡", "moderate": "⚠️", "severe": "🆘"}
+            emoji = severity_emoji.get(struggle.severity, "❓")
+            print(f"\n  {emoji} {struggle.task_title}")
+            print(f"     Severity: {struggle.severity}")
+            if struggle.duration_days:
+                print(f"     Duration: {struggle.duration_days} days (expected: {struggle.expected_duration_days})")
+            print(f"     Recommendation: {struggle.recommendation}")
+            if struggle.specialist_suggestion:
+                print(f"     Specialist: {struggle.specialist_suggestion}")
+        print()
+    else:
+        print("✅ No struggles detected - student doing well!")
+        print()
+
+    # Checkpoints
+    print(f"Checkpoint Performance:")
+    print(f"  • Pass rate: {analytics.checkpoint_analysis.pass_rate}%")
+    print(f"  • First-try pass rate: {analytics.checkpoint_analysis.first_try_pass_rate}%")
+    if analytics.checkpoint_analysis.patterns:
+        print(f"  • Patterns:")
+        for pattern in analytics.checkpoint_analysis.patterns[:2]:
+            print(f"    - {pattern}")
+    print()
+
+    # Patterns
+    if analytics.learning_patterns:
+        print(f"Learning Patterns ({len(analytics.learning_patterns)}):")
+        for pattern in analytics.learning_patterns:
+            print(f"  • {pattern.pattern_type.value}: {pattern.description}")
+            print(f"    Confidence: {pattern.confidence:.0%}")
+            print(f"    Impact: {pattern.impact}")
+        print()
+
+    # Recommendations
+    if analytics.recommendations:
+        print(f"Recommendations ({len(analytics.recommendations)}):")
+        print()
+
+        # Group by priority
+        by_priority = {}
+        for rec in analytics.recommendations:
+            p = rec.priority.value
+            if p not in by_priority:
+                by_priority[p] = []
+            by_priority[p].append(rec)
+
+        for priority in ["critical", "high", "medium", "low"]:
+            if priority in by_priority:
+                priority_emoji = {
+                    "critical": "🆘",
+                    "high": "⚠️",
+                    "medium": "💡",
+                    "low": "ℹ️"
+                }
+                emoji = priority_emoji.get(priority, "•")
+                print(f"  {emoji} {priority.upper()} Priority:")
+                for rec in by_priority[priority]:
+                    print(f"     • {rec.title}")
+                    print(f"       {rec.description}")
+                print()
+    else:
+        print("✅ No recommendations - plan progressing well!")
+        print()
+
+    # Key insights
+    if analytics.key_insights:
+        print("Key Insights:")
+        for insight in analytics.key_insights:
+            print(f"  • {insight}")
+        print()
+
+    # Agent response example
+    print("=" * 70)
+    print("HOW AGENT WOULD RESPOND")
+    print("=" * 70)
+    print()
+
+    if analytics.overall_health == "struggling" and analytics.struggle_areas:
+        print("⚠️  Agent detects severe struggles")
+        print()
+        print("Agent Response:")
+        print("-" * 70)
+        severe = [s for s in analytics.struggle_areas if s.severity == "severe"]
+        if severe:
+            struggle = severe[0]
+            print(f'"I notice you\'ve been working on "{struggle.task_title}" for')
+            if struggle.duration_days:
+                print(f'{struggle.duration_days} days. This is a challenging topic!')
+            print()
+            print(f"Would you like me to connect you with {struggle.specialist_suggestion}")
+            print("to help work through it?")
+            print()
+            print("Alternatively, we could break this down into smaller pieces.")
+            print('What approach sounds better to you?"')
+    elif analytics.struggle_areas:
+        print("💡 Agent detects moderate struggles")
+        print()
+        print("Agent Response:")
+        print("-" * 70)
+        struggle = analytics.struggle_areas[0]
+        print(f'"I see you\'ve been on "{struggle.task_title}" for a while.')
+        print("How is it going? Is there anything specific you're stuck on?")
+        print()
+        print('If helpful, I can connect you with a specialist or we can')
+        print('break it down together."')
+    elif analytics.checkpoint_analysis.first_try_pass_rate == 100 and analytics.checkpoint_analysis.passed_checkpoints > 0:
+        print("🎉 Agent detects excellent performance")
+        print()
+        print("Agent Response:")
+        print("-" * 70)
+        print('"Excellent work! You\'ve passed all checkpoints on your first try,')
+        print("which shows you have a strong grasp of these concepts.")
+        print()
+        print(f'Your steady progress of {analytics.velocity_metrics.tasks_per_week} tasks per week')
+        print("is right on track. Keep up the great work!")
+        print()
+        print('Ready to tackle the next phase?"')
+    else:
+        print("✅ Agent proceeds normally")
+        print()
+        print("Agent Response:")
+        print("-" * 70)
+        print('"Great to see you back! You\'re making solid progress.')
+        print(f'You\'ve completed {analytics.velocity_metrics.tasks_completed_total} tasks')
+        print("and you're on track to finish as planned.")
+        print()
+        print('What would you like to work on today?"')
+
+    print("-" * 70)
+
+
 def main():
     """Run all demos"""
     print("\n" + "=" * 70)
     print("SKILLS INTEGRATION DEMO")
-    print("Showing how learning-plan-manager + code-analysis work together")
+    print("Showing how skills enhance agent capabilities")
     print("=" * 70 + "\n")
 
     demos = [
@@ -348,6 +547,7 @@ def main():
         demo_architecture_understanding,
         demo_learning_journey_with_code_feedback,
         demo_export_analysis_report,
+        demo_learning_analytics,
     ]
 
     for demo in demos:
@@ -366,8 +566,9 @@ def main():
     print("Key Takeaways:")
     print("1. code-analysis provides architectural understanding")
     print("2. learning-plan-manager tracks educational progress")
-    print("3. Together they enable intelligent, context-aware teaching")
-    print("4. Agents can provide better guidance with both skills")
+    print("3. learning-analytics detects struggles and adapts teaching")
+    print("4. Together they enable intelligent, context-aware, proactive teaching")
+    print("5. Agents transform from reactive helpers to proactive mentors")
     print()
 
 
