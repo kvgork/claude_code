@@ -264,6 +264,44 @@ claude_code/
 - Structured multi-week learning journeys
 - JETANK robot programming projects
 
+## 🔬 Release Quality Assessment System
+
+A comprehensive system for assessing code release quality through performance profiling, environment tracking, and multi-dimensional quality scoring.
+
+### 🚀 Quick Start
+
+```bash
+# Start infrastructure services
+cd infrastructure && docker-compose up -d
+
+# Run a release assessment
+PYTHONPATH=/home/koen/workspaces/claude_code python skills/release_orchestrator/demo.py
+
+# View results in dashboard
+python dashboard_server.py
+```
+
+### 📊 Features
+
+- **Performance Profiling**: cProfile, resource monitoring, Jaeger tracing, benchmark execution
+- **Environment Tracking**: Hardware/software snapshots for reproducibility
+- **Quality Scoring**: Multi-dimensional assessment (Code, Tests, Dependencies, Docs, Performance)
+- **Infrastructure**: Docker stack with Jaeger, TimescaleDB, Redis, Prometheus, Grafana
+- **Reporting**: Markdown and JSON reports with recommendations
+
+### 📚 Documentation
+
+- **[RELEASE_QUALITY_SYSTEM_FINAL_SUMMARY.md](./RELEASE_QUALITY_SYSTEM_FINAL_SUMMARY.md)** - Complete system overview
+- **[RELEASE_QUALITY_QUICK_START.md](./RELEASE_QUALITY_QUICK_START.md)** - Getting started guide
+- **[RELEASE_QUALITY_IMPLEMENTATION_COMPLETE.md](./RELEASE_QUALITY_IMPLEMENTATION_COMPLETE.md)** - Implementation details
+- **[infrastructure/README.md](./infrastructure/README.md)** - Infrastructure setup and configuration
+
+### 🛠️ Skills Included
+
+- **performance-profiler** (6 operations) - Profiling, tracing, resource monitoring, benchmarking
+- **environment-profiler** (5 operations) - Hardware/software detection and comparison
+- **release-orchestrator** (3 operations) - Release assessment and quality scoring
+
 ## 🔧 Customization
 
 All agents and commands are customizable:

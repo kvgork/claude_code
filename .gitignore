@@ -56,3 +56,10 @@ Thumbs.db
 # Temporary files
 .temp/
 *.tmp
+
+# Release Quality Assessment - Generated Artifacts
+# Uncomment these lines to ignore generated artifacts (currently committed for demonstration)
+# benchmarks/
+# profiles/
+# environment_snapshots/
+# reports/
