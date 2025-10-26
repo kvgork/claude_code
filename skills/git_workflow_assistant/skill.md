@@ -1,5 +1,3 @@
-# Git Workflow Assistant
-
 ---
 name: git-workflow-assistant
 version: 0.1.0
@@ -8,7 +6,14 @@ category: developer-productivity
 author: Claude Code Skills
 dependencies: []
 tags: [git, version-control, workflow, commits, branches, pull-requests]
+operations:
+  analyze_changes: "Analyze staged and unstaged changes in a git repository"
+  generate_commit_message: "Generate conventional commit message from staged changes"
+  suggest_branch_name: "Suggest branch name following conventions"
+  create_pull_request: "Create pull request with generated description"
 ---
+
+# Git Workflow Assistant
 
 ## Overview
 

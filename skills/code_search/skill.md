@@ -1,5 +1,3 @@
-# Code Search
-
 ---
 name: code-search
 version: 0.1.0
@@ -8,7 +6,14 @@ category: developer-productivity
 author: Claude Code Skills
 dependencies: []
 tags: [search, code-navigation, ast, indexing, symbols, references]
+operations:
+  search_symbol: "Find symbols (functions, classes, variables) in codebase"
+  search_pattern: "Search for code patterns in codebase"
+  find_definition: "Find the definition of a symbol"
+  find_usages: "Find all usages of a symbol"
 ---
+
+# Code Search
 
 ## Overview
 

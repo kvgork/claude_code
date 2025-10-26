@@ -1,5 +1,3 @@
-# Doc Generator
-
 ---
 name: doc-generator
 version: 0.1.0
@@ -8,7 +6,13 @@ category: developer-productivity
 author: Claude Code Skills
 dependencies: []
 tags: [documentation, docstrings, readme, api-docs, automation]
+operations:
+  generate_docstrings: "Generate comprehensive docstrings for Python code"
+  generate_readme: "Generate comprehensive README.md from project analysis"
+  analyze_documentation: "Analyze existing documentation coverage and quality"
 ---
+
+# Doc Generator
 
 ## Overview
 
