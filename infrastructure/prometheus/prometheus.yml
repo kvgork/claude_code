@@ -1,0 +1,58 @@
+# Prometheus Configuration for Release Quality Assessment
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'release-quality'
+    environment: 'development'
+
+# Alertmanager configuration (optional)
+# alerting:
+#   alertmanagers:
+#     - static_configs:
+#         - targets:
+#           - alertmanager:9093
+
+# Rule files (for recording rules and alerts)
+rule_files:
+  # - "alerts/*.yml"
+  # - "rules/*.yml"
+
+# Scrape configurations
+scrape_configs:
+  # Prometheus self-monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # Jaeger metrics
+  - job_name: 'jaeger'
+    static_configs:
+      - targets: ['jaeger:14269']
+    metric_relabel_configs:
+      - source_labels: [__name__]
+        regex: 'jaeger_.*'
+        action: keep
+
+  # TimescaleDB metrics (if pg_exporter is enabled)
+  # - job_name: 'timescaledb'
+  #   static_configs:
+  #     - targets: ['postgres-exporter:9187']
+
+  # Redis metrics (if redis_exporter is enabled)
+  # - job_name: 'redis'
+  #   static_configs:
+  #     - targets: ['redis-exporter:9121']
+
+  # API Server metrics (when implemented)
+  # - job_name: 'release-quality-api'
+  #   static_configs:
+  #     - targets: ['api:8000']
+  #   metrics_path: '/metrics'
+
+  # Custom benchmark metrics (pushgateway)
+  # - job_name: 'pushgateway'
+  #   honor_labels: true
+  #   static_configs:
+  #     - targets: ['pushgateway:9091']

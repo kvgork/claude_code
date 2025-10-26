@@ -1,0 +1,142 @@
+version: '3.8'
+
+services:
+  # Jaeger - Distributed Tracing
+  jaeger:
+    image: jaegertracing/all-in-one:1.51
+    container_name: release-quality-jaeger
+    ports:
+      - "5775:5775/udp"  # zipkin.thrift compact
+      - "6831:6831/udp"  # jaeger.thrift compact
+      - "6832:6832/udp"  # jaeger.thrift binary
+      - "5778:5778"      # serve configs
+      - "16686:16686"    # Jaeger UI
+      - "14268:14268"    # jaeger.thrift HTTP
+      - "14250:14250"    # model.proto
+      - "9411:9411"      # zipkin compatible
+    environment:
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+      - COLLECTOR_OTLP_ENABLED=true
+    networks:
+      - release-quality-net
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:14269"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # TimescaleDB - Time-Series Metrics Storage
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: release-quality-timescaledb
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=release_quality
+      - POSTGRES_USER=rq_user
+      - POSTGRES_PASSWORD=rq_password
+    volumes:
+      - timescaledb-data:/var/lib/postgresql/data
+      - ./infrastructure/timescaledb/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - release-quality-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rq_user -d release_quality"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis - Caching and Job Queue
+  redis:
+    image: redis:7-alpine
+    container_name: release-quality-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass rq_redis_password
+    volumes:
+      - redis-data:/data
+    networks:
+      - release-quality-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # Prometheus - Metrics Collection (Optional)
+  prometheus:
+    image: prom/prometheus:v2.48.0
+    container_name: release-quality-prometheus
+    ports:
+      - "9090:9090"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=30d'
+    volumes:
+      - ./infrastructure/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    networks:
+      - release-quality-net
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:9090/-/healthy"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # Grafana - Visualization Dashboard (Optional)
+  grafana:
+    image: grafana/grafana:10.2.2
+    container_name: release-quality-grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=grafana-clock-panel
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./infrastructure/grafana/provisioning:/etc/grafana/provisioning:ro
+    depends_on:
+      - prometheus
+      - timescaledb
+    networks:
+      - release-quality-net
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # API Server (Optional - for future REST API)
+  # api:
+  #   build:
+  #     context: .
+  #     dockerfile: infrastructure/api/Dockerfile
+  #   container_name: release-quality-api
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     - DATABASE_URL=postgresql://rq_user:rq_password@timescaledb:5432/release_quality
+  #     - REDIS_URL=redis://:rq_redis_password@redis:6379/0
+  #     - JAEGER_ENDPOINT=http://jaeger:14268/api/traces
+  #   depends_on:
+  #     - timescaledb
+  #     - redis
+  #     - jaeger
+  #   networks:
+  #     - release-quality-net
+
+networks:
+  release-quality-net:
+    driver: bridge
+
+volumes:
+  timescaledb-data:
+    driver: local
+  redis-data:
+    driver: local
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
