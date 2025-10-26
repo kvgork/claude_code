@@ -1,0 +1,78 @@
+{
+  "release_version": "v1.1.0",
+  "timestamp": 1761481663.258024,
+  "timestamp_iso": "2025-10-26T13:27:43.258026",
+  "total_benchmarks": 4,
+  "results": [
+    {
+      "benchmark_name": "fibonacci_recursive_15",
+      "release_version": "v1.1.0",
+      "timestamp": 1761481663.18653,
+      "duration_ms": 27.07815170288086,
+      "iterations": 20,
+      "avg_time_ms": 1.353907585144043,
+      "min_time_ms": 1.1925697326660156,
+      "max_time_ms": 2.046823501586914,
+      "std_dev_ms": 0.23605812116744507,
+      "throughput_ops_sec": 738.602849243665,
+      "memory_peak_mb": 0.0,
+      "cpu_avg_percent": 35.8375,
+      "metadata": {
+        "algorithm": "recursive",
+        "n": 15
+      }
+    },
+    {
+      "benchmark_name": "fibonacci_iterative_15",
+      "release_version": "v1.1.0",
+      "timestamp": 1761481663.190286,
+      "duration_ms": 0.042438507080078125,
+      "iterations": 20,
+      "avg_time_ms": 0.0021219253540039062,
+      "min_time_ms": 0.0016689300537109375,
+      "max_time_ms": 0.003337860107421875,
+      "std_dev_ms": 0.0004011940031240609,
+      "throughput_ops_sec": 471270.11235955055,
+      "memory_peak_mb": 0.0,
+      "cpu_avg_percent": 0.0,
+      "metadata": {
+        "algorithm": "iterative",
+        "n": 15
+      }
+    },
+    {
+      "benchmark_name": "list_comprehension",
+      "release_version": "v1.1.0",
+      "timestamp": 1761481663.2165575,
+      "duration_ms": 16.495943069458008,
+      "iterations": 20,
+      "avg_time_ms": 0.8247971534729004,
+      "min_time_ms": 0.6208419799804688,
+      "max_time_ms": 1.3861656188964844,
+      "std_dev_ms": 0.22800231704430138,
+      "throughput_ops_sec": 1212.4193152090652,
+      "memory_peak_mb": 0.0,
+      "cpu_avg_percent": 46.7675,
+      "metadata": {
+        "type": "list_comprehension"
+      }
+    },
+    {
+      "benchmark_name": "generator_expression",
+      "release_version": "v1.1.0",
+      "timestamp": 1761481663.2579665,
+      "duration_ms": 28.113603591918945,
+      "iterations": 20,
+      "avg_time_ms": 1.4056801795959473,
+      "min_time_ms": 0.8401870727539062,
+      "max_time_ms": 1.9812583923339844,
+      "std_dev_ms": 0.4399898258766665,
+      "throughput_ops_sec": 711.3993741360448,
+      "memory_peak_mb": 0.0,
+      "cpu_avg_percent": 25.110000000000003,
+      "metadata": {
+        "type": "generator"
+      }
+    }
+  ]
+}
