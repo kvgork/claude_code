@@ -1,0 +1,83 @@
+{
+  "release_version": "v1.0.0",
+  "timestamp": 1761482406.745687,
+  "timestamp_iso": "2025-10-26T13:40:06.745690",
+  "total_benchmarks": 5,
+  "results": [
+    {
+      "benchmark_name": "list_comprehension",
+      "release_version": "v1.0.0",
+      "timestamp": 1761482406.6542692,
+      "duration_ms": 12.388229370117188,
+      "iterations": 10,
+      "avg_time_ms": 1.2388229370117188,
+      "min_time_ms": 1.1882781982421875,
+      "max_time_ms": 1.3790130615234375,
+      "std_dev_ms": 0.05365601161891956,
+      "throughput_ops_sec": 807.2178598922247,
+      "memory_peak_mb": 0.0,
+      "cpu_avg_percent": 63.96,
+      "metadata": {}
+    },
+    {
+      "benchmark_name": "dict_comprehension",
+      "release_version": "v1.0.0",
+      "timestamp": 1761482406.6940663,
+      "duration_ms": 25.742769241333008,
+      "iterations": 10,
+      "avg_time_ms": 2.574276924133301,
+      "min_time_ms": 2.221822738647461,
+      "max_time_ms": 3.2634735107421875,
+      "std_dev_ms": 0.3914726918062109,
+      "throughput_ops_sec": 388.45859613051414,
+      "memory_peak_mb": 0.0,
+      "cpu_avg_percent": 67.535,
+      "metadata": {}
+    },
+    {
+      "benchmark_name": "set_comprehension",
+      "release_version": "v1.0.0",
+      "timestamp": 1761482406.7314258,
+      "duration_ms": 24.0933895111084,
+      "iterations": 10,
+      "avg_time_ms": 2.40933895111084,
+      "min_time_ms": 1.970529556274414,
+      "max_time_ms": 3.0198097229003906,
+      "std_dev_ms": 0.3264972624437095,
+      "throughput_ops_sec": 415.051605561328,
+      "memory_peak_mb": 0.0,
+      "cpu_avg_percent": 33.455,
+      "metadata": {}
+    },
+    {
+      "benchmark_name": "string_concat",
+      "release_version": "v1.0.0",
+      "timestamp": 1761482406.7389095,
+      "duration_ms": 3.0062198638916016,
+      "iterations": 10,
+      "avg_time_ms": 0.30062198638916016,
+      "min_time_ms": 0.2834796905517578,
+      "max_time_ms": 0.3209114074707031,
+      "std_dev_ms": 0.010052892678505267,
+      "throughput_ops_sec": 3326.4366722182567,
+      "memory_peak_mb": 0.0,
+      "cpu_avg_percent": 0.0,
+      "metadata": {}
+    },
+    {
+      "benchmark_name": "string_join",
+      "release_version": "v1.0.0",
+      "timestamp": 1761482406.7456229,
+      "duration_ms": 2.1550655364990234,
+      "iterations": 10,
+      "avg_time_ms": 0.21550655364990234,
+      "min_time_ms": 0.12564659118652344,
+      "max_time_ms": 0.2582073211669922,
+      "std_dev_ms": 0.05515639188851784,
+      "throughput_ops_sec": 4640.230113950658,
+      "memory_peak_mb": 0.0,
+      "cpu_avg_percent": 134.52,
+      "metadata": {}
+    }
+  ]
+}
